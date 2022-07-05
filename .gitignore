@@ -1,0 +1,7 @@
+*
+!.gitignore
+!LICENSE
+!**.util
+!**.util/**
+!load.ps1
+!ReadMe.md
