@@ -1,4 +1,5 @@
 function Convert-Music {
+    # Converts Audiofile to another (e.g. flac to m4a)
     [Alias("cm")]
     [CmdletBinding()]
     param (

@@ -15,20 +15,24 @@ function Optimize-Duplicates {
 
     if ($groups.Count -eq 0) {
         Write-Host "No Duplicates!" -ForegroundColor Green
-    } else {
-        if ($delete) {
-            foreach ($group in $groups) {
-                Clear-Host
-                $filenames = @($group.Group.FullName | Out-GridView -Title 'Choose a file' -PassThru)
+        return
+    }
 
-                Write-Host "Not Deleting: $filenames"
-            }
-        } else {
-            foreach ($group in $groups) {
-                $host.UI.RawUI.ForegroundColor = Get-Color
-                $group.GROUP.FULLNAME
-            }
+    if ($delete) {
+        foreach ($group in $groups) {
+            Clear-Host
+            $filenames = @($group.Group.FullName | Out-GridView -Title 'Choose a file' -PassThru)
+
+            Write-Host "Not Deleting: $filenames"
+        }
+    } else {
+        foreach ($group in $groups) {
+            $host.UI.RawUI.ForegroundColor = Get-Color
+            $group.GROUP.FULLNAME
         }
     }
+
+    Write-Host "Remember that CCleaner does this also, and kinda good"
+    Write-Host "Also AllDups ist great too"
     Write-Host "Groups: $($groups.Count)"
 }
