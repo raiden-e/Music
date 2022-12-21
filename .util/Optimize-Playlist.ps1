@@ -1,4 +1,5 @@
 function Optimize-Playlist {
+    # VLC stores a .m3u8, so that rekordbox can't read it. this mostly fixes it.
     [Alias("opl")]
     [CmdletBinding()]
     param (
