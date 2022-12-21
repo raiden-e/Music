@@ -45,9 +45,17 @@ function Complete-Tags {
     $artists = ($Matches[1] -split "&" -split ",").trim() | Sanitize
     $title = $Matches[2].Trim() | Sanitize
 
-
     $tags = [TagLib.File]::Create($FilePath.FullName)
-    $tags.Tag.Title = $title
-    $tags.Tag.Artists = $artists
-    $tags.Save()
+    $edited = $false
+    if (!$tags.Tag.Title -or $Force) {
+        $tags.Tag.Title = $title
+        $edited = $true
+    }
+    if (!$tags.Tag.Artists -or $Force) {
+        $tags.Tag.Artists = $artists
+        $edited = $true
+    }
+    if ($edited) {
+        $tags.Save()
+    }
 }
