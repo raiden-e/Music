@@ -3,5 +3,7 @@
 !LICENSE
 !**.util
 !**.util/**
+!**.github/**
+!**.github
 !load.ps1
 !ReadMe.md

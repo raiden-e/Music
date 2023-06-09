@@ -24,7 +24,8 @@ function Convert-Music {
         Write-Warning "Converting from a lossy format into another is SUPER lossy!"
     }
 
-    $ffmpeg = Get-Item "$PSScriptRoot\ffmpeg.exe" -ErrorAction SilentlyContinue
+    # $ffmpeg = Get-Item "$PSScriptRoot\ffmpeg.exe" -ErrorAction SilentlyContinue
+    $ffmpeg = Get-FFMPEG
     if (!$ffmpeg) {
         . "$PSScriptRoot\Update-FFMPEG.ps1"
         $ffmpeg = Update-FFMPEG -PassThru

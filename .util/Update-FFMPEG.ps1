@@ -11,12 +11,12 @@ function Update-FFMPEG {
     }
 
     $web = Invoke-RestMethod "https://api.github.com/repos/BtbN/FFmpeg-Builds/releases/latest"
-    $link = ($web.assets | ? { $_.name -like "*ffmpeg-n*-latest-win64-lgpl*" -and $_.Name -notlike "*shared*" })[-1].browser_download_url
+    $link = ($web.assets.browser_download_url | ? {$_ -like "*ffmpeg-n*-latest-win64-lgpl*" -and $_ -notlike "*shared*" })[-1]
 
     Invoke-WebRequest $link -UseBasicParsing -OutFile "$PSScriptRoot\ffmpeg.zip"
 
+    Add-Type -Assembly System.IO.Compression.FileSystem
     try {
-        Add-Type -Assembly System.IO.Compression.FileSystem
         $zip = [IO.Compression.ZipFile]::OpenRead("$PSScriptRoot\ffmpeg.zip")
         $zippedFile = $zip.entries | ? { $_.name -eq "ffmpeg.exe" }
         [IO.Compression.ZipFileExtensions]::ExtractToFile($zippedFile, "$PSScriptRoot\ffmpeg.exe", $true)

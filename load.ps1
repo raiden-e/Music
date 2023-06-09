@@ -18,6 +18,6 @@ $scripts | ForEach-Object { Write-Verbose "Loading $_"; . ($_.FullName) }
 
 if ($MyInvocation.InvocationName -ne ".") {
     Write-Host
-    Write-Warning "To Export functions to your session, you need to dot source scripts! "
+    Write-Warning "To Export functions to your session, you need to dot source scripts!"
 }
 Write-Host "Done" -ForegroundColor Green
