@@ -1,13 +1,14 @@
 [CmdletBinding()]
 param (
-    [switch]$Force
+    [switch]$Force,
+    [switch]$help
 )
 
 if ($Force -or !$global:TagLibLoaded) {
     if (Test-Path "$PSScriptRoot\.util" -PathType Container) {
         Add-Type -Path "$PSScriptRoot\.util\TagLibSharp.dll"
     } else {
-        Add-Type -Path  "$PSScriptRoot\TagLibSharp.dll"
+        Add-Type -Path "$PSScriptRoot\TagLibSharp.dll"
     }
     $global:TagLibLoaded = $true
 }
@@ -21,3 +22,8 @@ if ($MyInvocation.InvocationName -ne ".") {
     Write-Warning "To Export functions to your session, you need to dot source scripts!"
 }
 Write-Host "Done" -ForegroundColor Green
+
+if ($help) {
+    Write-Host "Available functions:"
+    $scripts | ForEach-Object { Write-Host ("  " + $_.BaseName) }
+}

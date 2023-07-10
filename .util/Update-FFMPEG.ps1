@@ -7,12 +7,14 @@ function Update-FFMPEG {
     )
 
     if (!$Force -and ("ffmpeg.exe" -in (Get-ChildItem $PSScriptRoot).Name)) {
+        Write-Host "ffmpeg.exe already exists, skipping download"
         return
     }
 
     $web = Invoke-RestMethod "https://api.github.com/repos/BtbN/FFmpeg-Builds/releases/latest"
     $link = ($web.assets.browser_download_url | ? {$_ -like "*ffmpeg-n*-latest-win64-lgpl*" -and $_ -notlike "*shared*" })[-1]
 
+    Write-Host "Downloading $link"
     Invoke-WebRequest $link -UseBasicParsing -OutFile "$PSScriptRoot\ffmpeg.zip"
 
     Add-Type -Assembly System.IO.Compression.FileSystem
